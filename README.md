@@ -4,6 +4,8 @@
 
 Can be used to create simple demos to record with other tools, so you don't have to really type commands in good timing and without mistakes to record a demo video.
 
+![shellme](https://github.com/user-attachments/assets/584957b6-89c2-4ade-b5ed-638bfdbd16d1)
+
 `shellme` just spawn an interactive shell using `expect` and is expecting shell prompt, then it type first command and press enter (execution) then wait to get next prompt...
 
 (no commands with interactive response can be used, shellme only launch commands on prompt, use directly `expect` if you need interactivity)
