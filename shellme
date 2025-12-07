@@ -21,10 +21,27 @@ proc human_type {str} {
     }
 }
 
+proc usage {argv0} {
+    puts "Usage:"
+    puts "  $argv0 \[--prompt <regexp>] \[--sleep <before_s> <after_s>] \\"
+    puts "         \[--speed <base_ms> <jitter_ms>] \\"
+    puts "         \[-f <file_with_commands>] | <cmd1> <cmd2> ...\n"
+    puts "  regexp    : regexp to expect to get prompt, default '\\n?.*\[\$#] $'"
+    puts "  before_s  : seconds to wait before typing, default 2"
+    puts "  after_s   : seconds to wait after typing, default 2"
+    puts "  base_ms   : typing char mseconds, default 120"
+    puts "  jitter_ms : typing jitter mseconds, default 120"
+    exit 1
+}
+
 set cmds {}
 set read_from_file 0
 set file_path ""
-
+if {$argc > 0} {
+  set arg [lindex $argv 0]
+  if {$arg eq "-h"} { usage $argv0 }
+  if {$arg eq "--help"} { usage $argv0 }
+}
 for {set i 0} {$i < $argc} {incr i} {
     set arg [lindex $argv $i]
     if {$arg eq "-f"} {
@@ -64,19 +81,10 @@ if {$read_from_file} {
     }
     close $fh
 }
-
 if {[llength $cmds] == 0} {
-    puts "Usage:"
-    puts "  $argv0 \[--prompt <regexp>] \[--sleep <before_s> <after_s>] \\"
-    puts "         \[--speed <base_ms> <jitter_ms>] \\"
-    puts "         \[-f <file_with_commands>] | <cmd1> <cmd2> ...\n"
-    puts "  regexp    : regexp to expect to get prompt, default '\\n?.*\[\$#] $'"
-    puts "  before_s  : seconds to wait before typing, default 2"
-    puts "  after_s   : seconds to wait after typing, default 2"
-    puts "  base_ms   : typing char mseconds, default 120"
-    puts "  jitter_ms : typing jitter mseconds, default 120"
-    exit 1
+    usage $argv0
 }
+
 
 if {[info exists env(SHELL)]} { set shell $env(SHELL) } else { set shell "/bin/bash" }
 if {[info exists env(FLY_HOME)]} {
