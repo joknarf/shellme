@@ -40,6 +40,8 @@ for {set i 0} {$i < $argc} {incr i} {
         incr i
         if {$i >= $argc} { puts stderr "ERROR: --sleep requires seconds"; exit 2 }
         set wait_type [lindex $argv $i]
+        incr i
+        set wait_enter [lindex $argv $i]
     } elseif {$arg eq "--speed"} {
         incr i
         if {$i+1 >= $argc} { puts stder "ERROR: --speed requires two integers: base_ms jitter_ms"; exit 2 }
@@ -65,8 +67,14 @@ if {$read_from_file} {
 
 if {[llength $cmds] == 0} {
     puts "Usage:"
-    puts "  $argv0 \[--prompt <regexp>] \[--sleep <seconds>] \[--speed <base_ms> <jitter_ms>] \\"
+    puts "  $argv0 \[--prompt <regexp>] \[--sleep <before_s> <after_s>] \\"
+    puts "         \[--speed <base_ms> <jitter_ms>] \\"
     puts "         \[-f <file_with_commands>] | <cmd1> <cmd2> ..."
+    puts "  regexp    : regexp to expect to get prompt, default '\\n?.*\[\$#] $'"
+    puts "  before_s  : seconds to wait before typing, default 2"
+    puts "  after_s   : seconds to wait after typing, default 2"
+    puts "  base_ms   : typing char mseconds, default 120"
+    puts "  jitter_ms : typing jitter mseconds, default 120"
     exit 1
 }
 
