@@ -17,6 +17,12 @@ Can be used to create simple demos to record with other tools, so you don't have
 ## usage
 
 ```
-shellme -f <commands_file>
-shellme <cmd>...
-```
+shellme [--prompt <regexp>] [--sleep <before_s> <after_s>] \
+        [--speed <base_ms> <jitter_ms>] \
+        [-f <file_with_commands>] | <cmd1> <cmd2> ...
+
+  regexp    : regexp to expect to get prompt, default '\n?.*[$#] $'
+  before_s  : seconds to wait before typing, default 2
+  after_s   : seconds to wait after typing, default 2
+  base_ms   : typing char mseconds, default 120
+  jitter_ms : typing jitter mseconds, default 120```
