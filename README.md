@@ -25,4 +25,5 @@ shellme [--prompt <regexp>] [--sleep <before_s> <after_s>] \
   before_s  : seconds to wait before typing, default 2
   after_s   : seconds to wait after typing, default 2
   base_ms   : typing char mseconds, default 120
-  jitter_ms : typing jitter mseconds, default 120```
+  jitter_ms : typing jitter mseconds, default 120
+```
