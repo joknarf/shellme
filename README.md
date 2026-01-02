@@ -14,6 +14,10 @@ Can be used to create simple demos to record with other tools, so you don't have
 # shellme "echo This is a demo" "ls -l"
 ```
 
+## prerequisites
+
+* expect
+
 ## usage
 
 ```
