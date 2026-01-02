@@ -86,16 +86,23 @@ if {[llength $cmds] == 0} {
 }
 
 
+set stty_init {-echo} 
+set opts [list -i]
 if {[info exists env(SHELL)]} { set shell $env(SHELL) } else { set shell "/bin/bash" }
 if {[file tail $shell] eq "zsh"} {
     set opts [list -i -o no_zle]
-} else { set opts [list -i] }
+} elseif {[file tail $shell] eq "ksh"} {
+    set stty_init {echo} 
+}
 
 # clear screen
 send "\033c"
-set stty_init {-echo} 
 spawn -noecho $shell {*}$opts
 set timeout 600
+if {[file tail $shell] eq "ksh"} {
+    expect -re $prompt_re
+    send "stty -echo\r"
+}
 
 foreach cmd $cmds {
     expect -re $prompt_re
