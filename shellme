@@ -2,7 +2,7 @@
 # shellme
 # Author: joknarf
 
-set prompt_re {\n?.*[\$#] $}
+set prompt_re {.*(\x1b\[[0-9;]*m| )*[\$#](\x1b\[[0-9;]*m| )*$}
 set base_ms 120
 set jitter_ms 120
 set wait_type 2
@@ -90,10 +90,13 @@ if {[info exists env(SHELL)]} { set shell $env(SHELL) } else { set shell "/bin/b
 if {[info exists env(FLY_HOME)]} {
     set opts [list -c "FLY_ETC_RC=false;. $env(FLY_HOME)/.fly.d/fly loginshell"]
 } else { set opts [list -i] }
+if {[file tail $shell] eq "zsh"} {
+    set opts [list -i -o no_zle]
+}
 
 # clear screen
 send "\033c"
-set stty_init {-echo raw}
+set stty_init {-echo} 
 spawn -noecho $shell {*}$opts
 set timeout 600
 
