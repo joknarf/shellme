@@ -2,7 +2,7 @@
 # shellme
 # Author: joknarf
 
-set prompt_re {.*(\x1b\[[0-9;]*m| )*[\$#%](\x1b\[[0-9;]*m| )*$}
+set prompt_re {\n.*(\x1b\[[0-9;]*m| )*[\$#%](\x1b\[[0-9;]*m| )*$}
 set base_ms 120
 set jitter_ms 120
 set wait_type 2
