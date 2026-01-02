@@ -87,12 +87,9 @@ if {[llength $cmds] == 0} {
 
 
 if {[info exists env(SHELL)]} { set shell $env(SHELL) } else { set shell "/bin/bash" }
-if {[info exists env(FLY_HOME)]} {
-    set opts [list -c "FLY_ETC_RC=false;. $env(FLY_HOME)/.fly.d/fly loginshell"]
-} else { set opts [list -i] }
 if {[file tail $shell] eq "zsh"} {
     set opts [list -i -o no_zle]
-}
+} else { set opts [list -i] }
 
 # clear screen
 send "\033c"
