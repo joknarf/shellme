@@ -100,8 +100,13 @@ send "\033c"
 spawn -noecho $shell {*}$opts
 set timeout 600
 if {[file tail $shell] eq "ksh"} {
+    log_user 0
     expect -re $prompt_re
-    send "stty -echo\r"
+    send -- "stty -echo\r"
+    expect -re $prompt_re
+    log_user 1
+    send -- "echo\r"
+    #send_user -- "\n"
 }
 
 foreach cmd $cmds {
